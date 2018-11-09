@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:SimpleMarginTool"
         xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="MarginToolWindow" Height="450" Width="800"
+        Title="Market-Logs" Height="450" Width="800"
         d:DataContext="{d:DesignInstance vm:MarketOrdersWindowViewModel}">
     <Window.Resources>
         <CollectionViewSource x:Key="SellOrderViewSource" Source="{Binding LatestLogEntry.MarketOrders}" Filter="SellOrderViewSource_Filter">
@@ -20,10 +20,9 @@
             <CollectionViewSource.SortDescriptions>
                 <componentmodel:SortDescription PropertyName="Price" Direction="Descending" />
             </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-
-        
+        </CollectionViewSource>        
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

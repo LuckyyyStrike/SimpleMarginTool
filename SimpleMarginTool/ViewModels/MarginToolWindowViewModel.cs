@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
@@ -39,6 +40,10 @@ namespace SimpleMarginTool.ViewModels
                 return 1 - BestBuyOrder.Price / BestSellOrder.Price;
             }
         }
+        public decimal? DeltaInIsk { get; set; } = new decimal(0.01);
+        public decimal? NewBestPrice => IsBuyMode ? BestBuyOrder?.Price + DeltaInIsk : BestSellOrder?.Price + DeltaInIsk;
+        public bool IsBuyMode { get; set; }
+        //public bool IsSellMode { get; set; } = true;
 
         public MarginToolWindowViewModel(MarketOrdersWindowViewModel viewModel)
         {
@@ -52,12 +57,27 @@ namespace SimpleMarginTool.ViewModels
                 OnPropertyChanged(nameof(BestBuyOrder));
                 OnPropertyChanged(nameof(MarginInIsk));
                 OnPropertyChanged(nameof(MarginInPercent));
+                OnPropertyChanged(nameof(NewBestPrice));
+                    CopyBestPriceToClipboard();
             };
+            MarketOrdersWindowViewModel.MarketLogEntryAdded += (s, e) => { if (EnableAutoCopy) CopyBestPriceToClipboard(); };
         }
 
         private void OnEnableAlwaysOnTopChanged()
         {
             EnableAlwaysOnTopChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnIsBuyModeChanged()
+        {
+            CopyBestPriceToClipboard();
+        }
+
+        private void CopyBestPriceToClipboard()
+        {
+            if (NewBestPrice == null || NewBestPrice == 0 || !EnableAutoCopy)
+                return;
+            Application.Current.Dispatcher.Invoke(() => { Clipboard.SetText(NewBestPrice.ToString()); });            
         }
     }
 }

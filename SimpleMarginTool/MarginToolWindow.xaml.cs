@@ -38,7 +38,6 @@ namespace SimpleMarginTool
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
-
         public MarketOrdersWindowViewModel MarketOrdersWindowViewModel { get; set; }
         public MarginToolWindowViewModel ViewModel { get; set; }
 
