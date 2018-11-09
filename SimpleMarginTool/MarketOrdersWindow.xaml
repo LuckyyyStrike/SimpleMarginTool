@@ -1,0 +1,64 @@
+﻿<Window x:Class="SimpleMarginTool.MarketOrdersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SimpleMarginTool.ViewModels"
+        xmlns:lib="clr-namespace:Library;assembly=Library"
+        xmlns:local="clr-namespace:SimpleMarginTool"
+        xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        mc:Ignorable="d"
+        Title="MarginToolWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance vm:MarketOrdersWindowViewModel}">
+    <Window.Resources>
+        <CollectionViewSource x:Key="SellOrderViewSource" Source="{Binding LatestLogEntry.MarketOrders}" Filter="SellOrderViewSource_Filter">
+            <CollectionViewSource.SortDescriptions>
+                <componentmodel:SortDescription PropertyName="Price" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="BuyOrderViewSource" Source="{Binding LatestLogEntry.MarketOrders}" Filter="BuyOrderViewSource_Filter">
+            <CollectionViewSource.SortDescriptions>
+                <componentmodel:SortDescription PropertyName="Price" Direction="Descending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" VerticalAlignment="Stretch">
+            <Label DockPanel.Dock="Top" Content="Sell" />
+            <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
+                      ItemsSource="{Binding Source={StaticResource SellOrderViewSource}}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
+                    <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
+                    <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel Grid.Row="1" VerticalAlignment="Stretch">
+            <Label DockPanel.Dock="Top" Content="Buy" />
+            <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
+                      ItemsSource="{Binding Source={StaticResource BuyOrderViewSource}}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
+                    <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
+                    <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
+                    <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Window>
