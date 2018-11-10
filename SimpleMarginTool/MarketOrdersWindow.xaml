@@ -25,39 +25,43 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Content="{Binding LatestLogEntry.ItemName, FallbackValue=n/a}" />
 
-        <DockPanel Grid.Row="0" VerticalAlignment="Stretch">
-            <Label DockPanel.Dock="Top" Content="Sell" />
-            <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
+        <UniformGrid Grid.Row="1" Rows="2">
+            <DockPanel VerticalAlignment="Stretch">
+                <Label DockPanel.Dock="Top" Content="Sell" />
+                <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
                       ItemsSource="{Binding Source={StaticResource SellOrderViewSource}}"
                       AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
-                    <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
-                    <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
-                    <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
-        <DockPanel Grid.Row="1" VerticalAlignment="Stretch">
-            <Label DockPanel.Dock="Top" Content="Buy" />
-            <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
+                        <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
+                        <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
+                        <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+            <DockPanel VerticalAlignment="Stretch">
+                <Label DockPanel.Dock="Top" Content="Buy" />
+                <DataGrid DockPanel.Dock="Bottom" d:DataContext="{d:DesignInstance lib:MarketOrder}" 
                       ItemsSource="{Binding Source={StaticResource BuyOrderViewSource}}"
                       AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
-                    <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
-                    <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
-                    <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
-                    <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </DockPanel>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Jumps" Binding="{Binding Jumps}" />
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding VolumeRemaining}" />
+                        <DataGridTextColumn Header="Min. Volume" Binding="{Binding MinVolume}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=N2}" />
+                        <DataGridTextColumn Header="Station-ID" Binding="{Binding StationId}" />
+                        <DataGridTextColumn Header="Range" Binding="{Binding Range}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </UniformGrid>
     </Grid>
 </Window>

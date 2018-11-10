@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SimpleMarginTool"
         mc:Ignorable="d"
         Title="Margin-Tool" SizeToContent="WidthAndHeight"
-        MinWidth="200" MinHeight="300">
+        MinWidth="200" MinHeight="300" WindowStyle="None">
     <Grid>
         <DockPanel LastChildFill="False" Grid.IsSharedSizeScope="True" Margin="5">
             <DockPanel.Resources>
@@ -26,6 +26,7 @@
                     <Setter Property="Margin" Value="1" />
                 </Style>
             </DockPanel.Resources>
+            
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
@@ -40,72 +41,60 @@
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Best Sell: "/>
-                <TextBlock Grid.Column="2" Text="{Binding BestSellOrder.Price, StringFormat=N2, FallbackValue=n/a}" />
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding BestSellOrder.Price, StringFormat=N2, FallbackValue=n/a}" />
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Best Buy: "/>
-                <TextBlock Grid.Column="2" Text="{Binding BestBuyOrder.Price, StringFormat=N2, FallbackValue=n/a}" />
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding BestBuyOrder.Price, StringFormat=N2, FallbackValue=n/a}" />
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Margin in ISK: "/>
-                <TextBlock Grid.Column="2" Text="{Binding MarginInIsk, StringFormat=N2, FallbackValue=n/a}" />
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding MarginInIsk, StringFormat=N2, FallbackValue=n/a}" />
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Margin in %: "/>
-                <TextBlock Grid.Column="2" Text="{Binding MarginInPercent, StringFormat=P2, FallbackValue=n/a}" />
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding MarginInPercent, StringFormat=P2, FallbackValue=n/a}" />
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="Delta in ISK: "/>
-                <TextBox Grid.Column="2" Text="{Binding DeltaInIsk, StringFormat=N2}" MinWidth="50" />
+                <TextBox Grid.Column="2" HorizontalAlignment="Right" Text="{Binding DeltaInIsk, StringFormat=N2}" MinWidth="50" />
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="Labels" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="New best price: "/>
-                <TextBox Grid.Column="2" Text="{Binding NewBestPrice, StringFormat=N2, FallbackValue=n/a, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" Opacity="0.6" IsReadOnly="True"/>
-            </Grid>
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="Labels" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Auto-Copy: "/>
-                <CheckBox Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding EnableAutoCopy}" />
-            </Grid>
-            <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition SharedSizeGroup="Labels" />
-                    <ColumnDefinition Width="10" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Always on top: "/>
-                <CheckBox Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding EnableAlwaysOnTop}" />
+                <TextBox Grid.Column="2" HorizontalAlignment="Right" Text="{Binding NewBestPrice, StringFormat=N2, FallbackValue=n/a, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="50" Opacity="0.6" IsReadOnly="True"/>
             </Grid>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -117,6 +106,15 @@
                 <Label Grid.Column="0" Content="Mode: "/>
                 <RadioButton Grid.Column="2" GroupName="BuyOrSell" Content="Buy" IsChecked="{Binding IsBuyMode}" />
                 <RadioButton Grid.Column="3" GroupName="BuyOrSell" Content="Sell" IsChecked="True" Margin="5,0,0,0"/>
+            </Grid>
+            <Grid DockPanel.Dock="Top" Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" VerticalAlignment="Center" Content="Always on top" IsChecked="{Binding EnableAlwaysOnTop}" />
+                <CheckBox Grid.Column="2" VerticalAlignment="Center" Content="Auto-Copy" IsChecked="{Binding EnableAutoCopy}" />
             </Grid>
         </DockPanel>
     </Grid>

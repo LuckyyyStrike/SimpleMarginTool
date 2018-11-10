@@ -47,6 +47,16 @@ namespace SimpleMarginTool
             MarketOrdersWindowViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
             ViewModel = new MarginToolWindowViewModel(viewModel);
             DataContext = ViewModel;
+
+            // Wenn dieses Fenster geschlossen wird, schließen wir die gesamte Anwendung
+            Closing += (s, e) => Application.Current.MainWindow.Close();
+            // Settings WindowStyle to "None" removes the draggability of the Windows. This adds it back in.
+            MouseLeftButtonDown += (s, e) => 
+            {
+                base.OnMouseLeftButtonDown(e);
+                // Begin dragging the window
+                DragMove();
+            };
             // Whenever this Window is being moved to the background, we will use the imported "SetWindowPos" function to force it to top-most
             Deactivated += (s, e) => { if (ViewModel.EnableAlwaysOnTop) SetWindowPos(new WindowInteropHelper(this).Handle, HWND_TOPMOST, 0, 0, 0, 0, TOPMOST_FLAGS); };
             // Whenever "Always on top" is set to false, we use "SetWindowPos" to 

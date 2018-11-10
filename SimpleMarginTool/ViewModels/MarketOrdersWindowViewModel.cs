@@ -1,4 +1,5 @@
 ﻿using Library;
+using SimpleMarginTool.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace SimpleMarginTool.ViewModels
@@ -22,7 +24,7 @@ namespace SimpleMarginTool.ViewModels
 
         private ObservableCollection<MarketLogEntry> _marketLogEntries;
 
-        public ObservableCollection<MarketLogEntry> MarketLogEntries// { get; set; }
+        public ObservableCollection<MarketLogEntry> MarketLogEntries
         {
             get { return _marketLogEntries; }
             set
