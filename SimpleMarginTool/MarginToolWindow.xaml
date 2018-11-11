@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SimpleMarginTool"
         mc:Ignorable="d"
         Title="Margin-Tool" SizeToContent="WidthAndHeight"
-        MinWidth="200" MinHeight="300" WindowStyle="None">
+        MinWidth="200" MinHeight="300" WindowStyle="None" Icon="Resources/Icons/margintoolicon_02.ico">
     <Grid>
         <DockPanel LastChildFill="False" Grid.IsSharedSizeScope="True" Margin="5">
             <DockPanel.Resources>

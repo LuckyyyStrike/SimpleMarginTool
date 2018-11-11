@@ -1,5 +1,4 @@
 ﻿using Library;
-using SimpleMarginTool.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,12 +17,20 @@ namespace SimpleMarginTool.ViewModels
     {
         private object _lock = new object();
 
+        /// <summary>
+        /// Occurs when a new <see cref="MarketLogEntry"/> is added to <see cref="MarketLogEntries"/>
+        /// </summary>
         public event EventHandler MarketLogEntryAdded;
 
+        /// <summary>
+        /// The latest <see cref="MarketLogEntry"/> determined by <see cref="MarketLogEntry.CreationTime"/>
+        /// </summary>
         public MarketLogEntry LatestLogEntry => MarketLogEntries.OrderByDescending(x => x.CreationTime).FirstOrDefault();
 
         private ObservableCollection<MarketLogEntry> _marketLogEntries;
-
+        /// <summary>
+        /// All market log entries
+        /// </summary>
         public ObservableCollection<MarketLogEntry> MarketLogEntries
         {
             get { return _marketLogEntries; }
@@ -35,22 +42,14 @@ namespace SimpleMarginTool.ViewModels
                 _marketLogEntries.CollectionChanged +=
                     (s, e) =>
                     {
-                        OnPropertyChanged(nameof(MarketOrdersWindowViewModel.LatestLogEntry));
+                        OnPropertyChanged(nameof(LatestLogEntry));
                         if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                             MarketLogEntryAdded?.Invoke(this, EventArgs.Empty);
                     };
             }
         }
 
-
-
-        //private MarketLogWatcher _watcher;
-
         public MarketLogWatcher Watcher { get; set; }
-        //{
-        //    get { return _watcher; }
-        //    set { _watcher = value; OnPropertyChanged(); }
-        //}
 
         public MarketOrdersWindowViewModel()
         {
@@ -61,6 +60,10 @@ namespace SimpleMarginTool.ViewModels
             Watcher.FileChanged += Watcher_FileChanged;
         }
 
+        /// <summary>
+        /// Looks for the most recent market log file and adds it to <see cref="MarketLogEntries"/>
+        /// </summary>
+        /// <param name="marketLogEntries"></param>
         private void AddInitialMarketLogEntry(ObservableCollection<MarketLogEntry> marketLogEntries)
         {
             var logDir = new DirectoryInfo(MarketLogWatcher.MarketLogPath);

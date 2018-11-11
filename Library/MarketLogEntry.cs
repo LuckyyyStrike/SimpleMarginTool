@@ -5,10 +5,22 @@ using System.IO;
 
 namespace Library
 {
+    /// <summary>
+    /// Represents a single market log (like a file in the market log directory)
+    /// </summary>
     public class MarketLogEntry
     {
+        /// <summary>
+        /// The name of the item, the market log is about
+        /// </summary>
         public string ItemName { get; set; }
+        /// <summary>
+        /// LastWriteTime of the market log file
+        /// </summary>
         public DateTime CreationTime { get; set; }
+        /// <summary>
+        /// All buy and sell orders logged in the market log
+        /// </summary>
         public List<MarketOrder> MarketOrders { get; set; }
 
         public MarketLogEntry(string filePath)
@@ -21,13 +33,17 @@ namespace Library
             CreateMarketLogEntry(fileInfo);
         }
 
+        /// <summary>
+        /// Deserializes a market log from a file to this instances <see cref="MarketLogEntry"/>
+        /// </summary>
+        /// <param name="fileInfo">The market log file to deserialize</param>
         private void CreateMarketLogEntry(FileInfo fileInfo)
         {
             var fileNameSplit = fileInfo.FullName.Split('-');
             if (fileNameSplit.Length != 3)
                 return;
+            // item name is (also) part of the file name
             ItemName = fileNameSplit[1].Trim();
-            //CreationTime = DateTime.Parse(fileNameSplit[2].Replace(".txt", string.Empty));
             CreationTime = fileInfo.LastWriteTime;
             MarketOrders = new List<MarketOrder>();
 
@@ -35,7 +51,6 @@ namespace Library
             {
                 using (var sr = new StreamReader(fs))
                 {
-
                     int counter = 0;
                     while (!sr.EndOfStream)
                     {

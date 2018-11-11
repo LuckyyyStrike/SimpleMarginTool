@@ -36,11 +36,13 @@ namespace SimpleMarginTool
 
         private void SellOrderViewSource_Filter(object sender, FilterEventArgs e)
         {
+            // Wir lassen nur sell orders durch
             var order = (MarketOrder)e.Item;
             e.Accepted = !order.IsBid;
         }
         private void BuyOrderViewSource_Filter(object sender, FilterEventArgs e)
         {
+            // Wir lassen nur buy orders durch
             var order = (MarketOrder)e.Item;
             e.Accepted = order.IsBid;
         }
